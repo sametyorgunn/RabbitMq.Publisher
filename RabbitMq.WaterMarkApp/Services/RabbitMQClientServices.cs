@@ -9,9 +9,9 @@ namespace RabbitMq.WaterMarkApp.Services
         private readonly ConnectionFactory _connectionFactory;
         private IConnection _connection;
         private IModel _channel;
-        private static string exchangeName = "ImageDirectExchange";
-        private static string routingWaterMark = "watermark-route-image";
-        private static string queueName = "queue-watermark-image";
+        public static string exchangeName = "ImageDirectExchange";
+        public static string routingWaterMark = "watermark-route-image";
+        public static string queueName = "queue-watermark-image";
 
         private readonly ILogger<RabbitMQClientServices> _logger;
 
@@ -19,7 +19,6 @@ namespace RabbitMq.WaterMarkApp.Services
         {
             _connectionFactory = connectionFactory;
             _logger = logger;
-            Connect();
         }
 
         public IModel Connect()

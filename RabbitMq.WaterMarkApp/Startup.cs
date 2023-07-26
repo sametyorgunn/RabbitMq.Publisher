@@ -29,6 +29,7 @@ namespace RabbitMq.WaterMarkApp
         {
             services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(Configuration.GetConnectionString("RabbitMq"))});
             services.AddSingleton<RabbitMQClientServices>();
+            services.AddSingleton<RabbitMqPublisher>();
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseInMemoryDatabase(databaseName: "productDb");
