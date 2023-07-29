@@ -1,20 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RabbitMq.WaterMarkApp.BackGroundServices;
-using RabbitMq.WaterMarkApp.Models;
-using RabbitMq.WaterMarkApp.Services;
-using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RabbitMq.WaterMarkApp
+namespace RabbitMq.ExcelCreate
 {
     public class Startup
     {
@@ -28,19 +23,8 @@ namespace RabbitMq.WaterMarkApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(Configuration.GetConnectionString("RabbitMq")),
-            DispatchConsumersAsync=true });
-            services.AddSingleton<RabbitMQClientServices>();
-            services.AddSingleton<RabbitMqPublisher>();
-            services.AddHostedService<ImageWaterMarkProcessBackgroundService>();
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseInMemoryDatabase(databaseName: "productDb");
-            });
             services.AddControllersWithViews();
-
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
