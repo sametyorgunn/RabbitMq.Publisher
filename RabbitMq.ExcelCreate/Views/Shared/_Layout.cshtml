@@ -22,8 +22,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="CreateProductExcel">Excel Oluştur</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark text-justify-end">
+                                @if (Context.User.Identity.IsAuthenticated)
+                                {
+                                    @Context.User.Identity.Name
+                                }
+
+                            </a>
+                           
+                        </li>
+                        
+                      
                     </ul>
                 </div>
             </div>

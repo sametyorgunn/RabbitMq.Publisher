@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RabbitMq.ExcelCreate.Models;
 using System;
@@ -12,10 +13,13 @@ namespace RabbitMq.ExcelCreate.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly AppDbContext _appDbContext;
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, AppDbContext appDbContext)
         {
             _logger = logger;
+            _userManager = userManager;
+            _appDbContext = appDbContext;
         }
 
         public IActionResult Index()

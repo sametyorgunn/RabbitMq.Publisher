@@ -1,0 +1,12 @@
+﻿@model List<UserFile>
+@{
+    ViewData["Title"] = "Files";
+}
+
+<h1>Files</h1>
+
+@foreach(var i in Model)
+{
+    <li><a href="~/files/@i.FilePath">@i.FileName</a></li>
+}
+
