@@ -19,13 +19,15 @@ namespace FileCreateWorkerService
             CreateHostBuilder(args).Build().Run();
         }
 
+        private IServiceProvider provider;
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    IConfiguration configuration = hostContext.Configuration;
                     services.AddDbContext<AdventureWorks2019Context>(opt =>
                     {
-                        opt.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
+                        opt.UseSqlServer(configuration.GetConnectionString("SqlServer"));
                     });
                     IConfiguration Configuration = hostContext.Configuration;
                     services.AddSingleton<RabbitMQClientService>();
