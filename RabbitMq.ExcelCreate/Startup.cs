@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RabbitMq.ExcelCreate.hub;
 using RabbitMq.ExcelCreate.Models;
 using RabbitMq.ExcelCreate.Services;
 using RabbitMQ.Client;
@@ -46,6 +47,8 @@ namespace RabbitMq.ExcelCreate
                 opt.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddSignalR();
+
             
         }
 
@@ -71,6 +74,7 @@ namespace RabbitMq.ExcelCreate
            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<MyHub>("/myhub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

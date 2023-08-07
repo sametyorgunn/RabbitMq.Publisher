@@ -46,7 +46,8 @@ namespace FileCreateWorkerService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var consumer = new AsyncEventingBasicConsumer(_channel);
-            consumer.Received += Consumer_Received;  
+            _channel.BasicConsume(RabbitMQClientService.queueName,false, consumer);
+            consumer.Received += Consumer_Received;
         }
 
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs @event)
@@ -65,7 +66,7 @@ namespace FileCreateWorkerService
             MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
             multipartFormDataContent.Add(new ByteArrayContent(ms.ToArray()), "file", Guid.NewGuid().ToString() + ".xlxs");
 
-            var baseurl = "https://localhost:5001/api/files";
+            var baseurl = "https://localhost:44383/api/Files";
 
             using(var httpclient =  new HttpClient())
             {
